@@ -29,7 +29,7 @@ jobs:
       - name: SonarQube Cloud scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn --batch-mode sonar:sonar
+        run: mvn --batch-mode org.sonarsource.scanner.maven:sonar-maven-plugin:5.0.0.4389:sonar
 
       - name: Log in to Docker Hub
         if: github.event_name == 'push'
