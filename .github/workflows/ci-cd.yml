@@ -26,7 +26,13 @@ jobs:
       - name: Build and test with Maven
         run: mvn --batch-mode clean verify
 
-      - name: SonarQube Cloud scan
+      - name: Verify SonarCloud token
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          curl -sS -u "$SONAR_TOKEN:" https://sonarcloud.io/api/authentication/validate
+      -
+       name: SonarQube Cloud scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn --batch-mode org.sonarsource.scanner.maven:sonar-maven-plugin:5.0.0.4389:sonar
